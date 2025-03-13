@@ -1,30 +1,74 @@
 local lib = require 'library.library'                  -- functions specific to reaper-keys i.e. macros
 local movements = require 'movements'
-
--- Here are some predefined commands that you can use in bindings.lua e.g to map
--- abcd => ActivateNextMidiItem instead of abcd => 40833.
---
--- You can add your own actions. The following forms are possible:
---
--- Foo = 1337 -- run action 1337
--- Foo = "Fooable" -- run action with custom name Fooable (e.g. SWS actions are usually named).
---       You can refer to other actions.
--- Foo = {"Foo1", "Foo2"} -- run a sequence of actions: first Foo1, then Foo2
--- Foo = lib.foo.bar -- run a lua function
---
--- You can specify flags for every action:
--- Foo = {1337, midiCommand = true}
--- Foo = {1337, prefixRepetitionCount = true}
--- Foo = {1337, repetitions = 100500}
--- Foo = {1337, metaCommand = true}
--- Foo = {1337, registerAction = true}
---
--- Naming conventions:
--- - A noun implies an action which selects the noun, or a movement to its position
--- - Simple verbs are usually operators, such as 'change'
--- - Longer verbs are usually commands
----@type Action[]
+-- guide {
+	-- Here are some predefined commands that you can use in bindings.lua e.g to map
+	-- abcd => ActivateNextMidiItem instead of abcd => 40833.
+	--
+	-- You can add your own actions. The following forms are possible:
+	--
+	-- Foo = 1337 -- run action 1337
+	-- Foo = "Fooable" -- run action with custom name Fooable (e.g. SWS actions are usually named).
+	--       You can refer to other actions.
+	-- Foo = {"Foo1", "Foo2"} -- run a sequence of actions: first Foo1, then Foo2
+	-- Foo = lib.foo.bar -- run a lua function
+	--
+	-- You can specify flags for every action:
+	-- Foo = {1337, midiCommand = true}
+	-- Foo = {1337, prefixRepetitionCount = true}
+	-- Foo = {1337, repetitions = 100500}
+	-- Foo = {1337, metaCommand = true}
+	-- Foo = {1337, registerAction = true}
+	--
+	-- Naming conventions:
+	-- - A noun implies an action which selects the noun, or a movement to its position
+	-- - Simple verbs are usually operators, such as 'change'
+	-- - Longer verbs are usually commands
+	---@type Action[]
+-- }
 return {
+	--tm{
+		MoveItemLeftByGrid = 40793,
+		MoveItemRightByGrid = 40794,
+		MoveItemLeftByGrid4 = { "MoveItemLeftByGrid", repetitions = 4, prefixRepetitionCount = true },
+		MoveItemLeftByGrid4 = { "MoveItemLeftByGrid", repetitions = 4, prefixRepetitionCount = true },
+		--DeleteGaps = { "SetTimeSelectionStart", "RightGridDivision", "SetTimeSelectionEnd", "_XENAKIOS_REPOSITION_ITEMS" },
+		DeleteGaps = { "SelectItemsOnTrack", "_XENAKIOS_REPOSITION_ITEMS" },
+		MovePlayCursorLeft = 40084,
+		MovePlayCursorLeft4 = { "MovePlayCursorLeft", repetitions = 4, prefixRepetitionCount = true },
+		MovePlayCursorRight = 40085,
+		MovePlayCursorRight4 = { "MovePlayCursorRight", repetitions = 4, prefixRepetitionCount = true },
+		LeftGridDivisionAndSelectItem = { "LeftGridDivision", "SelectItemsUnderEditCursor" }, 
+		RightGridDivisionAndSelectItem = { "RightGridDivision", "SelectItemsUnderEditCursor" }, 
+		LeftGridDivisionVisualTimeline = { "LeftGridDivision","SelectItemsCrossingTimeAndTrackSelection" }, 
+		--LeftGridDivisionVisualTimeline = { "LeftGridDivision","SelectItemsCrossingTimeAndTrackSelection", "SelectItemsInTimeSelection" }, 
+		RightGridDivisionVisualTimeline = { "RightGridDivision", "SelectItemsInTimeSelection" }, 
+		LeftGridDivision4 = { "LeftGridDivisionAndSelectItem", repetitions = 4, prefixRepetitionCount = true },
+		RightGridDivision4 = { "RightGridDivisionAndSelectItem", repetitions = 4, prefixRepetitionCount = true },
+		SetAdaptiveGridDivision = "_RS6a4ecd962e6101f6f55408dd535c25addd8de2e0",
+		MoveTrackToFolder = { 42786, "InnerFolderAndParent", "ColorTrack","FolderParent", "RenameTrack"},
+		MoveTrackUnderPrevTrack = { "_SWS_INDENT" },
+		MoveTrackOutOfFolder = { "_SWS_UNINDENT" };
+		Wait5Seconds = 2011,
+		ToggleDockWindow = { 2011, 41172 },
+		AddTakeMarker = { "SelectItemsUnderEditCursor", 42385 },
+		DeleteTakeMarker = 42386,
+		SplitAtTakeMarkers = { "SelectItemsUnderEditCursor", 43168 },
+		PrevTakeMarker = 42393,
+		NextTakeMarker = 42394,
+		UpRankTakeMarker = 43157,
+		DownRankTakeMarker = 43158,
+		ClearRankTakeMarker = { "SaveTimeSelection", "ClearTimeSelection", "SetTimeSelectionStart", "RightGridDivision", "SetTimeSelectionEnd", 43202, "RestoreTimeSelection", "LeftGridDivision" },
+		PrevTrackAndSelectItem = { "PrevTrack", "SelectItemsUnderEditCursor" }, 
+		NextTrackAndSelectItem = { "NextTrack", "SelectItemsUnderEditCursor" }, 
+		AddSelectPrevTrack = { "_XENAKIOS_SELPREVTRACKKEEP" },
+		AddSelectNextTrack = { "_XENAKIOS_SELNEXTTRACKKEEP" },
+		SetModeVisualTrackAndSelectPrevTrack = { "SetModeVisualTrack", "AddSelectPrevTrack" },
+		SetModeVisualTrackAndSelectNextTrack = { "SetModeVisualTrack", "AddSelectNextTrack" },
+		SelectNextItemIfNone = 40791,
+		SelectItemsInTimeSelection = 40718,
+		SetModeNormalAndSelectItemsInTimeSelection = { "SelectItemsInTimeSelection", "SetModeNormal" },
+		ExclusiveSoloTrack = { "UnsoloAllTracks", "TrackToggleSolo" },
+	--}tm
     ActivateNextMidiItem = { 40833, midiCommand = true },
     ActivatePrevMidiItem = { 40834, midiCommand = true },
     AddFx = 40271,

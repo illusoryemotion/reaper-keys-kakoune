@@ -1,10 +1,12 @@
 local os_default_fonts = {
     windows = "Lucida Console",
     osx = "Andale Mono",
-    linux = "Open Sans Mono",
+    linux = "GoMono Nerd Font",
 }
 local os = reaper.GetOS()
-local font_name = (os:match("Win") and os_default_fonts.windows)
+--tm
+local font_name = "Iosevka Aile"
+	or (os:match("Win") and os_default_fonts.windows)
     or (os:match("OSX") and os_default_fonts.osx)
     or os_default_fonts.linux
 
@@ -12,7 +14,7 @@ local font_name = (os:match("Win") and os_default_fonts.windows)
 local gui = {
     -- the factor to scale all elements (font size, element sizes...)
     -- will be multiplied by 2 if HiDPI (MacOS Retina only) mode is detected
-    gui_scale = 1.6,
+    gui_scale = 1,
 
     action_type_colors = {
         command = { .4, 0.8, 0.5, 1 },
