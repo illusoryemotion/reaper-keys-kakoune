@@ -424,6 +424,7 @@ local global = { -- applies both to main and midi
                 r = "RenderProject",
                 R = "RenderProjectWithLastSetting",
             } },
+			["t"] = "SetModeTrack",
         } },
     },
 }

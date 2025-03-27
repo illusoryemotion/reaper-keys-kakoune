@@ -68,6 +68,8 @@ return {
 		SelectItemsInTimeSelection = 40718,
 		SetModeNormalAndSelectItemsInTimeSelection = { "SelectItemsInTimeSelection", "SetModeNormal" },
 		ExclusiveSoloTrack = { "UnsoloAllTracks", "TrackToggleSolo" },
+    	SetModeTrack = lib.state.setModeTrack,
+
 	--}tm
     ActivateNextMidiItem = { 40833, midiCommand = true },
     ActivatePrevMidiItem = { 40834, midiCommand = true },

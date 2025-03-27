@@ -1,20 +1,38 @@
 local state_interface = require('state_machine.state_interface')
 local state = {}
 
+function ifElse(condition,if_true,if_false)
+	if condition then
+		return true
+	else
+		return false
+	end
+end
+
 function state.setModeNormal()
   state_interface.setMode('normal')
 end
 
-function state.setModeVisualTrack()
+function state.setModeAllTrack(is_visual)
   local current_track = reaper.GetLastTouchedTrack()
   if current_track then
     reaper.SetOnlyTrackSelected(current_track)
 
     local visual_track_pivot_index = reaper.GetMediaTrackInfo_Value(current_track, "IP_TRACKNUMBER") - 1
-
-    state_interface.setMode('visual_track')
-    state_interface.setVisualTrackPivotIndex(visual_track_pivot_index)
+	
+	local new_mode = ifElse(is_visual,'visual_track','track');
+	state_interface.setMode(new_mode);
+    
+	state_interface.setVisualTrackPivotIndex(visual_track_pivot_index)
   end
+end
+
+function state.setModeVisualTrack()
+	state.setModeAllTrack(true);
+end
+
+function state.setModeTrack()
+	state.setModeAllTrack(false);
 end
 
 function state.setModeVisualTimeline()

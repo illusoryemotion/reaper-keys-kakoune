@@ -22,7 +22,7 @@ end
 
 local function visualTrackTrackOperator(track_operator)
     runner.runAction(track_operator)
-    state_interface.setModeToNormal()
+    --state_interface.setModeToNormal()
     if not config.persist_visual_track_selection and (type(track_operator) ~= 'table' or not track_operator['setTrackSelection']) then
         local track = reaper.GetLastTouchedTrack()
         if track then reaper.SetOnlyTrackSelected(track) end
@@ -54,5 +54,14 @@ return {
         { { 'track_selector' },       runner.runAction },
         { { 'track_motion' },         visualTrackTrackMotion },
         { { 'timeline_motion' },      visualTrackTimelineMotion },
+    },
+    track = {
+        { { 'track_operator', 'track_selector' }, normalTrackSelector },
+        { { 'visual_track_command' }, runner.runAction },
+        { { 'track_operator' },       visualTrackTrackOperator },
+        { { 'track_selector' },       runner.runAction },
+        { { 'timeline_motion' }, 	  runner.runAction },
     }
+
+
 }
